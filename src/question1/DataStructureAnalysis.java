@@ -80,24 +80,29 @@ public class DataStructureAnalysis {
 
         // Report build times and swaps/rotations
         //System.out.println("Building Times (nanoseconds): " + Arrays.toString(buildTimes));
-        System.out.println("----------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
         System.out.println("BUILD TIME:");
+        System.out.println("___________");
         print(Arrays.toString(heapBuildTimes),Arrays.toString(avlBuildTimes),Arrays.toString(splayBuildTimes));
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
         System.out.println("SWAPS / ROTATIONS:");
+        System.out.println("__________________");
         print(Arrays.toString(heapSwaps),Arrays.toString(avlRotations),Arrays.toString(splayRotations));
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("MEANS FOR BUILDING TIME:");
+        System.out.println("_________________________");
         printMean(heapBuildTimes, avlBuildTimes, splayBuildTimes);
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("STANDARD DEVIATION FOR BUILDING TIME:");
+        System.out.println("_______________________________________");
         printStandardDeviation(heapBuildTimes, avlBuildTimes, splayBuildTimes);
-        System.out.println("----------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
     }
 
@@ -169,33 +174,39 @@ public class DataStructureAnalysis {
         }
         // Print the search times for Min Heap, AVL Tree, and Splay Tree for lowest and random numbers
         System.out.println("SEARCH TIME FOR LOWEST NUMBERS:");
+        System.out.println("_______________________________");
         print(Arrays.toString(searchTimeLowestBinaryMinHeap),Arrays.toString(searchTimeLowestAVLTree),Arrays.toString(searchTimeLowestSplayTree));
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("MEAN OF SEARCH TIME FOR LOWEST NUMBERS:");
+        System.out.println("_______________________________________");
         printMean(searchTimeLowestBinaryMinHeap, searchTimeLowestAVLTree, searchTimeLowestSplayTree);
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("STANDARD DEVIATION OF SEARCH TIME FOR LOWEST NUMBERS: ");
+        System.out.println("______________________________________________________");
         printStandardDeviation(searchTimeLowestBinaryMinHeap, searchTimeLowestAVLTree, searchTimeLowestSplayTree);
-        System.out.println("----------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("SEARCH TIME FOR RANDOM NUMBERS:");
+        System.out.println("_______________________________");
         print(Arrays.toString(searchTimeRandomBinaryMinHeap),Arrays.toString(searchTimeRandomAVLTree), Arrays.toString(searchTimeRandomSplayTree));
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("MEAN OF SEARCH TIME FOR RANDOM NUMBERS:");
+        System.out.println("_______________________________________");
         printMean(searchTimeRandomBinaryMinHeap, searchTimeRandomAVLTree, searchTimeRandomSplayTree);
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("STANDARD DEVIATION OF SEARCH TIME FOR RANDOM NUMBERS:");
+        System.out.println("_____________________________________________________");
         printStandardDeviation(searchTimeRandomBinaryMinHeap, searchTimeRandomAVLTree, searchTimeRandomSplayTree);
-        System.out.println("----------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
     }
 
@@ -237,18 +248,21 @@ public class DataStructureAnalysis {
 
         // Report insertion times for each data structure
         System.out.println("INSERTION TIME:");
+        System.out.println("_______________");
         print(Arrays.toString(insertionTimesMinHeap),Arrays.toString(insertionTimesAVLTree),Arrays.toString(insertionTimesSplayTree));
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("MEAN FOR INSERTION:");
+        System.out.println("___________________");
         printMean(insertionTimesMinHeap, insertionTimesAVLTree, insertionTimesSplayTree);
-        System.out.println("-----------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
         System.out.println("STANDARD DEVIATION FOR INSERTION:");
+        System.out.println("__________________________________");
         printStandardDeviation(insertionTimesMinHeap, insertionTimesAVLTree, insertionTimesSplayTree);
-        System.out.println("----------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
     }
 
