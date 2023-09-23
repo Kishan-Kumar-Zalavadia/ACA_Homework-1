@@ -10,21 +10,45 @@ public class DataStructureAnalysis {
         int numLowestNumbers = 50;
         int numRandomInsertions = 5000;
 
-        int[] elements = generateRandomPermutation(dataSize); // Generate a random permutation of 1 to 50000
+
+        // Generate a random permutation of 1 to 50000
+        int[] elements = generateRandomPermutation(dataSize);
+
+
         // Initialize data structures
         BinaryMinHeap minHeap = new BinaryMinHeap();
         AVLTree avlTree = new AVLTree();
         SplayTree splayTree = new SplayTree();
+
+        // Measure Build Times
+        measureBuildTime(minHeap, avlTree, splayTree, elements);
+
+        // Measure Search Time
+        measureSearchTime(minHeap, avlTree, splayTree, elements, numLowestNumbers);
+
+        // Measure Insertion Time
+        measureInsertionTime(minHeap, avlTree, splayTree, elements, numRandomInsertions);
+
+        
+
+    }
+
+
+    public static void measureBuildTime(BinaryMinHeap minHeap, AVLTree avlTree, SplayTree splayTree, int[] elements){
+
+        //Measure building time
+        long[] heapBuildTimes = new long[5];
+        long[] avlBuildTimes = new long[5];
+        long[] splayBuildTimes = new long[5];
 
         // Count swaps/rotations for building
         int[] heapSwaps = new int[5];
         int[] avlRotations = new int[5];
         int[] splayRotations = new int[5];
 
-        //Measure building time
-        //Build Binary Min Heap
-        long[] heapBuildTimes = new long[5];
+
         for (int i = 0; i < 5; i++) {
+            //Build Binary Min Heap
             long startTime = System.nanoTime();
             for (int element : elements) {
                 minHeap.insert(element);
@@ -32,29 +56,25 @@ public class DataStructureAnalysis {
             }
             long endTime = System.nanoTime();
             heapBuildTimes[i] = endTime - startTime;
-        }
 
-        //Build AVL Tree
-        long[] avlBuildTimes = new long[5];
-        for (int i = 0; i < 5; i++) {
-            long startTime = System.nanoTime();
+
+            //Build AVL Tree
+            startTime = System.nanoTime();
             for (int element : elements) {
                 avlTree.insert(element);
                 avlRotations[i] = avlTree.getRotationCount();
             }
-            long endTime = System.nanoTime();
+            endTime = System.nanoTime();
             avlBuildTimes[i] = endTime - startTime;
-        }
 
-        // Build Splay Tree
-        long[] splayBuildTimes = new long[5];
-        for (int i = 0; i < 5; i++) {
-            long startTime = System.nanoTime();
+
+            // Build Splay Tree
+            startTime = System.nanoTime();
             for (int element : elements) {
                 splayTree.insert(element);
                 splayRotations[i] = splayTree.getRotationCount();
             }
-            long endTime = System.nanoTime();
+            endTime = System.nanoTime();
             splayBuildTimes[i] = endTime - startTime;
         }
 
@@ -85,8 +105,10 @@ public class DataStructureAnalysis {
         System.out.println("Standard Deviation for Splay Tree: "+calculateStandardDeviation(splayBuildTimes));
         System.out.println("----------------------------------");
         System.out.println();
+    }
 
-        // Measure search times
+    // Measure Search Time
+    public static void measureSearchTime(BinaryMinHeap minHeap, AVLTree avlTree, SplayTree splayTree, int[] elements ,int numLowestNumbers){
         // Create arrays to store search times for Min Heap, AVL Tree, and Splay Tree
         long[] searchTimeLowestBinaryMinHeap = new long[5];
         long[] searchTimeLowestAVL = new long[5];
@@ -106,7 +128,7 @@ public class DataStructureAnalysis {
         for (int i = 0; i < 5; i++) {
             // Generate 50 random numbers
 
-            int[] randomNumbers = generateRandomNumbersNotInArray(elements, 50);
+            int[] randomNumbers = generateRandomNumbersNotInArray(elements, numLowestNumbers);
 
             // Measure search times for lowest numbers
             long startTime = System.nanoTime();
@@ -192,10 +214,12 @@ public class DataStructureAnalysis {
         System.out.println("Standard Deviation of Search Times for Random Numbers in Splay Tree: "+calculateStandardDeviation(searchTimeRandomSplayTree));
         System.out.println("----------------------------------");
         System.out.println();
+    }
 
-
+    // Measure Insertion Time
+    public static void measureInsertionTime(BinaryMinHeap minHeap, AVLTree avlTree, SplayTree splayTree, int[] elements, int numRandomInsertions){
         // Perform insertion of 5000 random numbers not in the original data structures
-        int[] randomInsertionNumbers = generateRandomNumbersNotInArray(elements, 5000);
+        int[] randomInsertionNumbers = generateRandomNumbersNotInArray(elements, numRandomInsertions);
 
         // Arrays to store insertion times for each data structure
         long[] insertionTimesMinHeap = new long[5];
@@ -249,6 +273,7 @@ public class DataStructureAnalysis {
         System.out.println("----------------------------------");
         System.out.println();
     }
+
 
     // Helper method to generate a random permutation of numbers from 1 to n
     private static int[] generateRandomPermutation(int n) {
