@@ -56,10 +56,10 @@ class AVLTree
             return false;
     }
 
-    // create insertElement() to insert element to to the AVL Tree
-    public void insertElement(int element)
+    // create insert() to insert element to to the AVL Tree
+    public void insert(int element)
     {
-        rootNode = insertElement(element, rootNode);
+        rootNode = insert(element, rootNode);
     }
 
     //create getHeight() method to get the height of the AVL Tree
@@ -75,8 +75,8 @@ class AVLTree
     }
 
 
-    //create insertElement() method to insert data in the AVL Tree recursively
-    private Node insertElement(int element, Node node)
+    //create insert() method to insert data in the AVL Tree recursively
+    private Node insert(int element, Node node)
     {
         //check whether the node is null or not
         if (node == null)
@@ -84,7 +84,7 @@ class AVLTree
             //insert a node in case when the given element is lesser than the element of the root node
         else if (element < node.element)
         {
-            node.leftChild = insertElement( element, node.leftChild );
+            node.leftChild = insert( element, node.leftChild );
             if( getHeight( node.leftChild ) - getHeight( node.rightChild ) == 2 )
                 if( element < node.leftChild.element )
                     node = rotateWithLeftChild( node );
@@ -93,7 +93,7 @@ class AVLTree
         }
         else if( element > node.element )
         {
-            node.rightChild = insertElement( element, node.rightChild );
+            node.rightChild = insert( element, node.rightChild );
             if( getHeight( node.rightChild ) - getHeight( node.leftChild ) == 2 )
                 if( element > node.rightChild.element)
                     node = rotateWithRightChild( node );

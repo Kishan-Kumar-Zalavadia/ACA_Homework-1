@@ -39,7 +39,7 @@ public class DataStructureAnalysis {
         for (int i = 0; i < 5; i++) {
             long startTime = System.nanoTime();
             for (int element : elements) {
-                avlTree.insertElement(element);
+                avlTree.insert(element);
                 avlRotations[i] = avlTree.getRotationCount();
             }
             long endTime = System.nanoTime();
@@ -111,7 +111,7 @@ public class DataStructureAnalysis {
             // Measure search times for lowest numbers
             long startTime = System.nanoTime();
             for (int number : lowestNumbers) {
-                boolean min = minHeap.contains(number);
+                boolean min = minHeap.search(number);
             }
             long endTime = System.nanoTime();
             searchTimeLowestBinaryMinHeap[i] = endTime - startTime;
@@ -133,7 +133,7 @@ public class DataStructureAnalysis {
             // Measure search times for random numbers
             startTime = System.nanoTime();
             for (int number : randomNumbers) {
-                minHeap.contains(number);
+                minHeap.search(number);
             }
             endTime = System.nanoTime();
             searchTimeRandomBinaryMinHeap[i] = endTime - startTime;
@@ -214,7 +214,7 @@ public class DataStructureAnalysis {
             // AVL Tree insertion
             long startTimeAVL = System.nanoTime();
             for (int number : randomInsertionNumbers) {
-                avlTree.insertElement(number);
+                avlTree.insert(number);
             }
             long endTimeAVL = System.nanoTime();
             insertionTimesAVL[i] = endTimeAVL - startTimeAVL;

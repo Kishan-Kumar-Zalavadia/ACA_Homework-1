@@ -114,7 +114,7 @@ public class BinaryMinHeap {
         return heap[0];
     }
 
-    public boolean contains(int value) {
+    public boolean search(int value) {
         for (int i = 0; i < size; i++) {
             if (heap[i] == value) {
                 return true;
