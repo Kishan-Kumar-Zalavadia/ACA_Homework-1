@@ -82,27 +82,21 @@ public class DataStructureAnalysis {
         //System.out.println("Building Times (nanoseconds): " + Arrays.toString(buildTimes));
         System.out.println("----------------------------------");
         System.out.println();
-        System.out.println("Building Time for Binary Min Heap (nanoseconds): "+Arrays.toString(heapBuildTimes));
-        System.out.println("Building Time for AVL Tree (nanoseconds): "+Arrays.toString(avlBuildTimes));
-        System.out.println("Building Time for Splay Tree (nanoseconds): "+Arrays.toString(splayBuildTimes));
+        System.out.println("BUILD TIME:");
+        print(Arrays.toString(heapBuildTimes),Arrays.toString(avlBuildTimes),Arrays.toString(splayBuildTimes));
         System.out.println();
-        System.out.println("Heap Swaps: " + Arrays.toString(heapSwaps));
-        System.out.println("AVL Rotations: " + Arrays.toString(avlRotations));
-        System.out.println("Splay Rotations: " + Arrays.toString(splayRotations));
+        System.out.println("SWAPS / ROTATIONS:");
+        print(Arrays.toString(heapSwaps),Arrays.toString(avlRotations),Arrays.toString(splayRotations));
         System.out.println("-----------------");
         System.out.println();
 
         System.out.println("MEANS FOR BUILDING TIME:");
-        System.out.println("Means for Binary Min Heap: "+calculateMean(heapBuildTimes));
-        System.out.println("Means for AVL Tree: "+calculateMean(avlBuildTimes));
-        System.out.println("Means for Splay Tree: "+calculateMean(splayBuildTimes));
+        printMean(heapBuildTimes, avlBuildTimes, splayBuildTimes);
         System.out.println("-----------------");
         System.out.println();
 
-        System.out.println("STANDARD DEVIATION FOR BUILDING TIME");
-        System.out.println("Standard Deviation for Binary Min Heap: "+calculateStandardDeviation(heapBuildTimes));
-        System.out.println("Standard Deviation for AVL Tree: "+calculateStandardDeviation(avlBuildTimes));
-        System.out.println("Standard Deviation for Splay Tree: "+calculateStandardDeviation(splayBuildTimes));
+        System.out.println("STANDARD DEVIATION FOR BUILDING TIME:");
+        printStandardDeviation(heapBuildTimes, avlBuildTimes, splayBuildTimes);
         System.out.println("----------------------------------");
         System.out.println();
     }
@@ -111,11 +105,11 @@ public class DataStructureAnalysis {
     public static void measureSearchTime(BinaryMinHeap minHeap, AVLTree avlTree, SplayTree splayTree, int[] elements ,int numLowestNumbers){
         // Create arrays to store search times for Min Heap, AVL Tree, and Splay Tree
         long[] searchTimeLowestBinaryMinHeap = new long[5];
-        long[] searchTimeLowestAVL = new long[5];
+        long[] searchTimeLowestAVLTree = new long[5];
         long[] searchTimeLowestSplayTree = new long[5];
 
         long[] searchTimeRandomBinaryMinHeap = new long[5];
-        long[] searchTimeRandomAVL = new long[5];
+        long[] searchTimeRandomAVLTree = new long[5];
         long[] searchTimeRandomSplayTree = new long[5];
 
 
@@ -127,7 +121,6 @@ public class DataStructureAnalysis {
 
         for (int i = 0; i < 5; i++) {
             // Generate 50 random numbers
-
             int[] randomNumbers = generateRandomNumbersNotInArray(elements, numLowestNumbers);
 
             // Measure search times for lowest numbers
@@ -143,7 +136,7 @@ public class DataStructureAnalysis {
                 avlTree.search(number);
             }
             endTime = System.nanoTime();
-            searchTimeLowestAVL[i] = endTime - startTime;
+            searchTimeLowestAVLTree[i] = endTime - startTime;
 
             startTime = System.nanoTime();
             for (int number : lowestNumbers) {
@@ -165,7 +158,7 @@ public class DataStructureAnalysis {
                 avlTree.search(number);
             }
             endTime = System.nanoTime();
-            searchTimeRandomAVL[i] = endTime - startTime;
+            searchTimeRandomAVLTree[i] = endTime - startTime;
 
             startTime = System.nanoTime();
             for (int number : randomNumbers) {
@@ -175,43 +168,33 @@ public class DataStructureAnalysis {
             searchTimeRandomSplayTree[i] = endTime - startTime;
         }
         // Print the search times for Min Heap, AVL Tree, and Splay Tree for lowest and random numbers
-        System.out.println("Search Times for Lowest Numbers in Binary Min Heap: "+Arrays.toString(searchTimeLowestBinaryMinHeap));
-        System.out.println("Search Times for Lowest Numbers in AVL Tree: "+Arrays.toString(searchTimeLowestAVL));
-        System.out.println("Search Times for Lowest Numbers in Splay Tree: "+Arrays.toString(searchTimeLowestSplayTree));
+        System.out.println("SEARCH TIME FOR LOWEST NUMBERS:");
+        print(Arrays.toString(searchTimeLowestBinaryMinHeap),Arrays.toString(searchTimeLowestAVLTree),Arrays.toString(searchTimeLowestSplayTree));
         System.out.println("-----------------");
         System.out.println();
 
         System.out.println("MEAN OF SEARCH TIME FOR LOWEST NUMBERS:");
-        System.out.println("Mean of Search Times for Lowest Numbers in Binary Min Heap: "+calculateMean(searchTimeLowestBinaryMinHeap));
-        System.out.println("Mean of Search Times for Lowest Numbers in AVL Tree: "+calculateMean(searchTimeLowestAVL));
-        System.out.println("Mean of Search Time for Search Times for Lowest Numbers in Splay Tree: "+calculateMean(searchTimeLowestSplayTree));
+        printMean(searchTimeLowestBinaryMinHeap, searchTimeLowestAVLTree, searchTimeLowestSplayTree);
         System.out.println("-----------------");
         System.out.println();
 
         System.out.println("STANDARD DEVIATION OF SEARCH TIME FOR LOWEST NUMBERS: ");
-        System.out.println("Standard Deviation of Search Times for Lowest Number in Binary Min Heap: "+calculateStandardDeviation(searchTimeLowestBinaryMinHeap));
-        System.out.println("Standard Deviation of Search Times for Lowest Numbers in AVL Tree: "+calculateStandardDeviation(searchTimeLowestAVL));
-        System.out.println("Standard Deviation of Search Times for Lowest Numbers in Splay Tree: "+calculateStandardDeviation(searchTimeLowestSplayTree));
+        printStandardDeviation(searchTimeLowestBinaryMinHeap, searchTimeLowestAVLTree, searchTimeLowestSplayTree);
         System.out.println("----------------------------------");
         System.out.println();
 
-        System.out.println("Search Times for Random Numbers in Binary Min Heap: "+Arrays.toString(searchTimeRandomBinaryMinHeap));
-        System.out.println("Search Times for Random Numbers in AVL Tree: "+Arrays.toString(searchTimeRandomAVL));
-        System.out.println("Search Times for Random Numbers in Splay Tree: "+Arrays.toString(searchTimeRandomSplayTree));
+        System.out.println("SEARCH TIME FOR RANDOM NUMBERS:");
+        print(Arrays.toString(searchTimeRandomBinaryMinHeap),Arrays.toString(searchTimeRandomAVLTree), Arrays.toString(searchTimeRandomSplayTree));
         System.out.println("-----------------");
         System.out.println();
 
         System.out.println("MEAN OF SEARCH TIME FOR RANDOM NUMBERS:");
-        System.out.println("Mean of Search Times for Random Numbers in Binary Min Heap: "+calculateMean(searchTimeRandomBinaryMinHeap));
-        System.out.println("Mean of Search Times for Random Numbers in AVL Tree: "+calculateMean(searchTimeRandomAVL));
-        System.out.println("Means of Search Times for Random Numbers in Splay Tree: "+calculateMean(searchTimeRandomSplayTree));
+        printMean(searchTimeRandomBinaryMinHeap, searchTimeRandomAVLTree, searchTimeRandomSplayTree);
         System.out.println("-----------------");
         System.out.println();
 
         System.out.println("STANDARD DEVIATION OF SEARCH TIME FOR RANDOM NUMBERS:");
-        System.out.println("Standard Deviation of Search Times for Random Numbers in Binary Min Heap: "+calculateStandardDeviation(searchTimeRandomBinaryMinHeap));
-        System.out.println("Standard Deviation of Search Times for Random Numbers in AVL Tree: "+calculateStandardDeviation(searchTimeRandomAVL));
-        System.out.println("Standard Deviation of Search Times for Random Numbers in Splay Tree: "+calculateStandardDeviation(searchTimeRandomSplayTree));
+        printStandardDeviation(searchTimeRandomBinaryMinHeap, searchTimeRandomAVLTree, searchTimeRandomSplayTree);
         System.out.println("----------------------------------");
         System.out.println();
     }
@@ -223,7 +206,7 @@ public class DataStructureAnalysis {
 
         // Arrays to store insertion times for each data structure
         long[] insertionTimesMinHeap = new long[5];
-        long[] insertionTimesAVL = new long[5];
+        long[] insertionTimesAVLTree = new long[5];
         long[] insertionTimesSplayTree = new long[5];
 
         for (int i = 0; i < 5; i++) {
@@ -241,7 +224,7 @@ public class DataStructureAnalysis {
                 avlTree.insert(number);
             }
             long endTimeAVL = System.nanoTime();
-            insertionTimesAVL[i] = endTimeAVL - startTimeAVL;
+            insertionTimesAVLTree[i] = endTimeAVL - startTimeAVL;
 
             // Splay Tree insertion
             long startTimeSplayTree = System.nanoTime();
@@ -253,27 +236,41 @@ public class DataStructureAnalysis {
         }
 
         // Report insertion times for each data structure
-        System.out.println("Insertion Times for Binary Min Heap (nanoseconds): " + Arrays.toString(insertionTimesMinHeap));
-        System.out.println("Insertion Times for AVL Tree (nanoseconds): " + Arrays.toString(insertionTimesAVL));
-        System.out.println("Insertion Times for Splay Tree (nanoseconds): " + Arrays.toString(insertionTimesSplayTree));
+        System.out.println("INSERTION TIME:");
+        print(Arrays.toString(insertionTimesMinHeap),Arrays.toString(insertionTimesAVLTree),Arrays.toString(insertionTimesSplayTree));
         System.out.println("-----------------");
         System.out.println();
 
         System.out.println("MEAN FOR INSERTION:");
-        System.out.println("Mean of Insertion Times for Binary Min Heap: "+calculateMean(insertionTimesMinHeap));
-        System.out.println("Mean of Insertion Times for AVL Tree: "+calculateMean(insertionTimesAVL));
-        System.out.println("Mean of Insertion Times for Splay Tree: "+calculateMean(insertionTimesSplayTree));
+        printMean(insertionTimesMinHeap, insertionTimesAVLTree, insertionTimesSplayTree);
         System.out.println("-----------------");
         System.out.println();
 
         System.out.println("STANDARD DEVIATION FOR INSERTION:");
-        System.out.println("Standard Deviation of Insertion Times for Binary Min Heap: "+calculateStandardDeviation(insertionTimesMinHeap));
-        System.out.println("Standard Deviation of Insertion Times for AVL Tree: "+calculateStandardDeviation(insertionTimesAVL));
-        System.out.println("Standard Deviation of Insertion Times for Splay Tree: "+calculateStandardDeviation(insertionTimesSplayTree));
+        printStandardDeviation(insertionTimesMinHeap, insertionTimesAVLTree, insertionTimesSplayTree);
         System.out.println("----------------------------------");
         System.out.println();
     }
 
+    // Print Means Times
+    public  static void printMean(long[] minHeap, long[] avlTree, long[] splayTree){
+        System.out.println("Min Heap: "+calculateMean(minHeap));
+        System.out.println("AVL Tree: "+calculateMean(avlTree));
+        System.out.println("Splay Tree: "+calculateMean(splayTree));
+
+    }
+
+    public static void printStandardDeviation(long[] minHeap, long[] avlTree, long[] splayTree){
+        System.out.println("Binary Min Heap: "+calculateStandardDeviation(minHeap));
+        System.out.println("AVL Tree: "+calculateStandardDeviation(avlTree));
+        System.out.println("Splay Tree: "+calculateStandardDeviation(splayTree));
+    }
+
+    public static void print(String minHeap, String avlTree, String splayTree){
+        System.out.println("Binary Min Heap: "+minHeap);
+        System.out.println("AVL Tree: "+avlTree);
+        System.out.println("splayTree: "+splayTree);
+    }
 
     // Helper method to generate a random permutation of numbers from 1 to n
     private static int[] generateRandomPermutation(int n) {
@@ -297,26 +294,6 @@ public class DataStructureAnalysis {
     }
 
     // Helper method to generate an array of random numbers not in the original array
-//    private static int[] generateRandomNumbersNotInArray(int[] originalArray, int count) {
-//        Set<Integer> originalSet = new HashSet<>();
-//        for (int num : originalArray) {
-//            originalSet.add(num);
-//        }
-//
-//        int[] randomNumbers = new int[count];
-//        int generatedCount = 0;
-//
-//        Random random = ThreadLocalRandom.current();
-//        while (generatedCount < count) {
-//            int randomNumber = random.nextInt(50000) + 1;
-//            if (!originalSet.contains(randomNumber)) {
-//                randomNumbers[generatedCount] = randomNumber;
-//                generatedCount++;
-//            }
-//        }
-//
-//        return randomNumbers;
-//    }
     private static int[] generateRandomNumbersNotInArray(int[] originalArray, int count) {
         Set<Integer> originalSet = new HashSet<>();
         for (int num : originalArray) {
