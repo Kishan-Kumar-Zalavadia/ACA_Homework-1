@@ -6,7 +6,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DataStructureAnalysis {
 
     public static void main(String[] args) {
-        int[] elements = generateRandomPermutation(50000); // Generate a random permutation of 1 to 50000
+        int dataSize = 50000;
+        int numLowestNumbers = 50;
+        int numRandomInsertions = 5000;
+
+        int[] elements = generateRandomPermutation(dataSize); // Generate a random permutation of 1 to 50000
         // Initialize data structures
         BinaryMinHeap minHeap = new BinaryMinHeap();
         AVLTree avlTree = new AVLTree();
