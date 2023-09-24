@@ -40,3 +40,9 @@ In summary, the choice of data structure depends on the specific requirements of
 - Use AVL Trees when you need a balanced and sorted data structure, and your application doesn't require frequent access to the minimum or maximum elements.
 
 - Use Splay Trees when your application has dynamic access patterns, unpredictable search and insertion needs, and you want a self-adjusting tree structure.
+
+**Referance**
+- Binary Min Heap: https://www.geeksforgeeks.org/min-heap-in-java/, chatGPT
+- AVL Tree: https://www.javatpoint.com/avl-tree-program-in-java
+- Splay Tree: https://www.javatpoint.com/splay-tree, https://codeofcode.org/lessons/splay-trees/
+- Random Functions: chatGPT
