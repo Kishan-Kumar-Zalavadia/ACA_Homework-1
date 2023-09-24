@@ -28,6 +28,8 @@ public class MedianFinder {
         }
         long endTime = System.nanoTime();
         long runTime = endTime - startTime;
+        System.out.println("_____________________________________________________________");
+        System.out.println("_____________________________________________________________");
         System.out.println("Run Time: " + runTime + " nanoseconds");
 
 
@@ -40,15 +42,15 @@ public class MedianFinder {
         }
     }
 
-        private int getTotalSize(List<List<Integer>> sortedLists) {
-//        int totalSize = 0;
-        return sortedLists.size()*sortedLists.get(0).size();
-//        for (List<Integer> list : sortedLists) {
-//            totalSize += list.size();
-//        }
-//        System.out.println(totalSize);
-//        return totalSize;
+    private int getTotalSize(List<List<Integer>> sortedLists) {
+        int totalSize = 0;
+        for (List<Integer> list : sortedLists) {
+            totalSize += list.size();
+        }
+        return totalSize;
+//        return sortedLists.size()*sortedLists.get(0).size();
     }
+
 
     private static class Element {
         int value;
@@ -80,36 +82,66 @@ public class MedianFinder {
     }
 
     public static void main(String[] args) {
-        int N = 10000; // Number of schools
-        int M = 3000; // Number of students in each school
-        List<List<Integer>> sortedLists = generateRandomData(N, M);
 
-//        for(int i=0 ;i<N;i++){
-//            for(int j=0;j<M;j++){
-//                System.out.print("School-"+(i+1)+": "+sortedLists.get(i).get(j)+" ");
-//            }
-//            System.out.println();
-//        }
+        Scanner scanner = new Scanner(System.in);
 
-//        List<List<Integer>> sortedList2 = new ArrayList<>();
-//        sortedList2.add(new ArrayList<>());
-//        sortedList2.add(new ArrayList<>());
-//        sortedList2.add(new ArrayList<>());
-//
-//        sortedList2.get(0).add(10);
-//        sortedList2.get(0).add(20);
-//        sortedList2.get(0).add(30);
-//
-//        sortedList2.get(1).add(15);
-//        sortedList2.get(1).add(25);
-//        sortedList2.get(1).add(35);
-//
-//        sortedList2.get(2).add(5);
-//        sortedList2.get(2).add(10);
-//        sortedList2.get(2).add(15);
+        System.out.println("1. Enter data manually");
+        System.out.println("2. Random generated data");
+        System.out.println("Enter your choice:");
+        int choice = scanner.nextInt();
 
-        MedianFinder finder = new MedianFinder();
-        double median = finder.findMedian(sortedLists);
-        System.out.println("Median: " + median);
+        switch (choice){
+            case 1:
+                System.out.print("Enter the number of schools: ");
+                int numberOfInnerLists = scanner.nextInt();
+
+                // Create a list of lists to store the data
+                List<List<Integer>> inputSortedList = new ArrayList<>();
+
+                // Loop to get user input for each inner list
+                for (int i = 0; i < numberOfInnerLists; i++) {
+                    System.out.println("Enter the heights for school " + (i + 1) + " in non-decreasing order (enter a negative number to finish):");
+                    List<Integer> innerList = new ArrayList<>();
+
+                    // Keep taking input until the user enters a negative number
+                    while (true) {
+                        int num = scanner.nextInt();
+                        if (num < 0) {
+                            break;
+                        }
+                        innerList.add(num);
+                    }
+
+                    inputSortedList.add(innerList);
+                }
+                // Close the scanner
+                scanner.close();
+
+                MedianFinder finder = new MedianFinder();
+                double median = finder.findMedian(inputSortedList);
+                System.out.println("Median: " + median);
+                break;
+            case 2:
+                System.out.println("Enter number of schools:");
+                int noOfSchools = scanner.nextInt();
+                System.out.println("Enter number of students per school:");
+                int studentsPerSchool = scanner.nextInt();
+
+                List<List<Integer>> randomSortedLists = generateRandomData(noOfSchools, studentsPerSchool);
+
+//                for(int i=0 ;i<noOfSchools;i++){
+//                    System.out.println("_____________________________________________________________");
+//                    System.out.println("School-"+(i+1)+": ");
+//                    for(int j=0;j<studentsPerSchool;j++){
+//                        System.out.print(randomSortedLists.get(i).get(j)+" ");
+//                    }
+//                    System.out.println();
+//                }
+                finder = new MedianFinder();
+                median = finder.findMedian(randomSortedLists);
+                System.out.println("Median: " + median);
+                break;
+        }
+
     }
 }

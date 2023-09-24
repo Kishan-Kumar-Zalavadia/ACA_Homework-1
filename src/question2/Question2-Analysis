@@ -1,0 +1,117 @@
+Question-2:
+______________________________________________________________________________________________________________
+a. Describe an algorithm in pseudocode, with comments how to find the median.
+______________________________________________________________________________________________________________
+Function findMedian(sortedLists)
+    totalSize = getTotalSize(sortedLists)
+
+    // Create two heaps, maxHeap for the left half and minHeap for the right half
+    maxHeap = MaxPriorityQueue()
+    minHeap = MinPriorityQueue()
+
+    startTime = CurrentTimeInNanoseconds()
+
+    // Iterate through each sorted list in the input
+    For each sortedList in sortedLists
+        For each value in sortedList
+            If maxHeap is empty OR value is less than or equal to maxHeap.peek()
+                Insert value into maxHeap
+            Else
+                Insert value into minHeap
+
+            // Balance the heaps
+            If maxHeap.size() > minHeap.size() + 1
+                Insert maxHeap.poll() into minHeap
+            Else If minHeap.size() > maxHeap.size()
+                Insert minHeap.poll() into maxHeap
+
+    endTime = CurrentTimeInNanoseconds()
+    runTime = endTime - startTime
+    Print "Run Time: " + runTime + " nanoseconds"
+
+    If totalSize is even
+        // If even number of elements, return the average of the two middle elements
+        median = (maxHeap.peek() + minHeap.peek()) / 2.0
+    Else
+        // If odd number of elements, return the middle element from the maxHeap
+        median = maxHeap.peek()
+
+    Return median
+
+Function getTotalSize(sortedLists)
+    totalSize = 0
+    For each list in sortedLists
+        totalSize = totalSize + length(list)
+    Return totalSize
+
+Function generateRandomData(N, M)
+    sortedLists = List of N empty lists
+
+    // Create a random number generator
+    random = RandomGenerator()
+
+    // Iterate through each list (school)
+    For each school from 1 to N
+        sortedList = Empty List
+
+        // Generate M random height values (e.g., between 100 and 200 cm)
+        For each student from 1 to M
+            height = random.nextInt(101) + 100
+            Add height to sortedList
+
+        // Sort the heights in ascending order
+        Sort sortedList in ascending order
+
+        Add sortedList to sortedLists
+
+    Return sortedLists
+
+Main()
+    Display Menu:
+    Print "1. Enter data manually"
+    Print "2. Random generated data"
+    Input choice
+
+    Switch on choice
+        Case 1:
+            Input numberOfInnerLists
+            Create an empty list inputSortedList
+            For each inner list in 1 to numberOfInnerLists
+                Input heights for the inner list in non-decreasing order
+                Create an empty list innerList
+                While true
+                    Input height
+                    If height < 0, break
+                    Add height to innerList
+                Add innerList to inputSortedList
+            Call findMedian(inputSortedList)
+
+        Case 2:
+            Input noOfSchools
+            Input studentsPerSchool
+            randomSortedLists = generateRandomData(noOfSchools, studentsPerSchool)
+            Call findMedian(randomSortedLists)
+______________________________________________________________________________________________________________
+b. Given there are N schools with x1,x2,x3,..., xn students respectively, what is the
+   complexity of your algorithm
+______________________________________________________________________________________________________________
+The provided algorithm for finding the median of a list of sorted lists has a time complexity of O(N*M*log(M)), where:
+
+- N is the number of schools.
+- M is the average number of students in each school.
+
+Here's the breakdown of the time complexity:
+
+1. For each school (N schools):
+   - Sorting the heights (students) within each school is O(M*log(M)).
+   - Inserting each student's height into the max and min heaps is O(log(M)) on average.
+
+2. Overall, you do this for each of the N schools, so the total complexity is N * (M*log(M) + log(M)) = O(N*M*log(M)).
+
+The dominant factor in the time complexity is the sorting operation within each school's list of students. If you're looking for the worst-case time complexity, you can consider the sorting operation to be O(M*log(M)), where M is the maximum number of students in any school. This provides an upper bound on the time complexity.
+
+So, in big O notation, the algorithm has a time complexity of O(N*M*log(M)), and it scales with the number of schools (N) and the average number of students per school (M).
+______________________________________________________________________________________________________________
+**Reference**
+- ChatGPT -> For Quick Snippets
+- https://www.geeksforgeeks.org/

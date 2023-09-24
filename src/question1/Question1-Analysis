@@ -1,4 +1,5 @@
 Question-1:
+___________
 Based on the provided data, let's analyze the behavior of the data structures (Binary Min Heap, AVL Tree, and Splay Tree) and discuss which type of problems they are most suitable for:
 
 **1. Building Time:**
@@ -7,11 +8,11 @@ Based on the provided data, let's analyze the behavior of the data structures (B
 
 - AVL Tree has a mean building time of 13.45 million nanoseconds, which is higher than the heap but still reasonable. AVL trees maintain balanced structures, so they are suitable for applications where you need to maintain a sorted or balanced data structure.
 
-- Splay Tree has a slightly higher mean building time (around 14.11 million nanoseconds) compared to the AVL Tree. It's still reasonable for many applications, especially if you expect frequent searches and modifications. Splay trees can adapt to access patterns over time, potentially making them suitable for dynamic data.
+- The Splay Tree has a slightly higher mean building time (around 14.11 million nanoseconds) compared to the AVL Tree. It's still reasonable for many applications, especially if you expect frequent searches and modifications. Splay trees can adapt to access patterns over time, potentially making them suitable for dynamic data.
 
 **2. Search Time for Lowest Numbers:**
 
-- Binary Min Heap has a relatively low mean search time for the lowest numbers (12,367 nanoseconds). Heaps are suitable for applications where you need quick access to the minimum or maximum element in a dataset, like priority queues.
+- Binary Min Heap has a relatively low mean search time for the lowest numbers (12,367 nanoseconds). Heaps are suitable for applications where you need quick access to a dataset's minimum or maximum element, like priority queues.
 
 - AVL Tree has a higher mean search time for the lowest numbers (22,691.6 nanoseconds), indicating that AVL trees may not be the most efficient choice for this specific operation.
 
@@ -27,7 +28,7 @@ Based on the provided data, let's analyze the behavior of the data structures (B
 
 **4. Insertion Time:**
 
-- Binary Min Heap has the lowest mean insertion time (98,908.2 nanoseconds), which makes it suitable for applications where you need efficient insertions.
+- Binary Min Heap has the lowest mean insertion time (98,908.2 nanoseconds), making it suitable for applications requiring efficient insertions.
 
 - AVL Tree has a higher mean insertion time (967,574.8 nanoseconds). AVL trees are more suitable when the tree structure needs to remain balanced during insertions.
 
@@ -41,7 +42,7 @@ In summary, the choice of data structure depends on the specific requirements of
 
 - Use Splay Trees when your application has dynamic access patterns, unpredictable search and insertion needs, and you want a self-adjusting tree structure.
 
-**Referance**
+**Reference**
 - Binary Min Heap: https://www.geeksforgeeks.org/min-heap-in-java/, chatGPT
 - AVL Tree: https://www.javatpoint.com/avl-tree-program-in-java
 - Splay Tree: https://www.javatpoint.com/splay-tree, https://codeofcode.org/lessons/splay-trees/
