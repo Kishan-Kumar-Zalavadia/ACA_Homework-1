@@ -1,5 +1,7 @@
 package question2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class MedianFinder {
@@ -81,67 +83,33 @@ public class MedianFinder {
         return sortedLists;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner fileScanner = new Scanner(new File("/Users/kishankumarz/Library/CloudStorage/GoogleDrive-kishankumarz3131@gmail.com/My Drive/Important/[02] USA/[02] UNT/[02] Classes/[01] Analysis_of Computer_Algoritms/[02] ACA_Assisgnment/[01] HomeWork/ACA_HomeWork-1/src/question1/input")); // Open the file for reading
 
-        System.out.println("1. Enter data manually");
-        System.out.println("2. Random generated data");
-        System.out.println("Enter your choice:");
-        int choice = scanner.nextInt();
+        List<List<Integer>> inputSortedList = new ArrayList<>();
 
-        switch (choice){
-            case 1:
-                System.out.print("Enter the number of schools: ");
-                int numberOfInnerLists = scanner.nextInt();
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            if (line.isEmpty()) {
+                continue; // Skip empty lines
+            }
 
-                // Create a list of lists to store the data
-                List<List<Integer>> inputSortedList = new ArrayList<>();
+            String[] values = line.split(" ");
+            List<Integer> innerList = new ArrayList<>();
 
-                // Loop to get user input for each inner list
-                for (int i = 0; i < numberOfInnerLists; i++) {
-                    System.out.println("Enter the heights for school " + (i + 1) + " in non-decreasing order (enter a negative number to finish):");
-                    List<Integer> innerList = new ArrayList<>();
+            for (String value : values) {
+                innerList.add(Integer.parseInt(value));
+            }
 
-                    // Keep taking input until the user enters a negative number
-                    while (true) {
-                        int num = scanner.nextInt();
-                        if (num < 0) {
-                            break;
-                        }
-                        innerList.add(num);
-                    }
-
-                    inputSortedList.add(innerList);
-                }
-                // Close the scanner
-                scanner.close();
-
-                MedianFinder finder = new MedianFinder();
-                double median = finder.findMedian(inputSortedList);
-                System.out.println("Median: " + median);
-                break;
-            case 2:
-                System.out.println("Enter number of schools:");
-                int noOfSchools = scanner.nextInt();
-                System.out.println("Enter number of students per school:");
-                int studentsPerSchool = scanner.nextInt();
-
-                List<List<Integer>> randomSortedLists = generateRandomData(noOfSchools, studentsPerSchool);
-
-//                for(int i=0 ;i<noOfSchools;i++){
-//                    System.out.println("_____________________________________________________________");
-//                    System.out.println("School-"+(i+1)+": ");
-//                    for(int j=0;j<studentsPerSchool;j++){
-//                        System.out.print(randomSortedLists.get(i).get(j)+" ");
-//                    }
-//                    System.out.println();
-//                }
-                finder = new MedianFinder();
-                median = finder.findMedian(randomSortedLists);
-                System.out.println("Median: " + median);
-                break;
+            inputSortedList.add(innerList);
         }
+        System.out.println(inputSortedList);
+        MedianFinder finder = new MedianFinder();
+        double median = finder.findMedian(inputSortedList);
+        System.out.println("Median: " + median);
+
+        fileScanner.close();
 
     }
 }
