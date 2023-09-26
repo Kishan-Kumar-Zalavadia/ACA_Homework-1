@@ -1,117 +1,141 @@
 Question-2:
-______________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 a. Describe an algorithm in pseudocode, with comments how to find the median.
-______________________________________________________________________________________________________________
-Function findMedian(sortedLists)
-    totalSize = getTotalSize(sortedLists)
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________Algorithm: Find Median
 
-    // Create two heaps, maxHeap for the left half and minHeap for the right half
-    maxHeap = MaxPriorityQueue()
-    minHeap = MinPriorityQueue()
+Input:
+- A list of numbers, `numbers`, of length `n`.
 
-    startTime = CurrentTimeInNanoseconds()
+Output:
+- The median of the input list.
 
-    // Iterate through each sorted list in the input
-    For each sortedList in sortedLists
-        For each value in sortedList
-            If maxHeap is empty OR value is less than or equal to maxHeap.peek()
-                Insert value into maxHeap
-            Else
-                Insert value into minHeap
+Pseudocode:
+1. Sort the list `numbers` in ascending order.
 
-            // Balance the heaps
-            If maxHeap.size() > minHeap.size() + 1
-                Insert maxHeap.poll() into minHeap
-            Else If minHeap.size() > maxHeap.size()
-                Insert minHeap.poll() into maxHeap
+2. If `n` is odd (i.e., `n` modulo 2 is 1):
+   a. Return the middle element of the sorted list:
+      i. Set `middle_index` to `n / 2`.
+      ii. Return `numbers[middle_index]`.
 
-    endTime = CurrentTimeInNanoseconds()
-    runTime = endTime - startTime
-    Print "Run Time: " + runTime + " nanoseconds"
+3. If `n` is even (i.e., `n` modulo 2 is 0):
+   a. Return the average of the two middle elements of the sorted list:
+      i. Set `middle_index1` to `n / 2 - 1`.
+      ii. Set `middle_index2` to `n / 2`.
+      iii. Calculate the average as `average = (numbers[middle_index1] + numbers[middle_index2]) / 2.0`.
+      iv. Return `average`.
 
-    If totalSize is even
-        // If even number of elements, return the average of the two middle elements
-        median = (maxHeap.peek() + minHeap.peek()) / 2.0
-    Else
-        // If odd number of elements, return the middle element from the maxHeap
-        median = maxHeap.peek()
+4. The median of the list has been calculated and returned.
 
-    Return median
+Example:
+Let's say `numbers = [5, 2, 9, 1, 5]`, which has `n = 5` elements.
+- After sorting, `numbers` becomes `[1, 2, 5, 5, 9]`.
+- Since `n` is odd, we return the middle element, which is `5`.
 
-Function getTotalSize(sortedLists)
-    totalSize = 0
-    For each list in sortedLists
-        totalSize = totalSize + length(list)
-    Return totalSize
+For `numbers = [3, 1, 4, 1, 5, 9, 2, 6]`, which has `n = 8` elements:
+- After sorting, `numbers` becomes `[1, 1, 2, 3, 4, 5, 6, 9]`.
+- Since `n` is even, we calculate the average of the two middle elements:
+  - `middle_index1 = 7 / 2 - 1 = 3`
+  - `middle_index2 = 7 / 2 = 4`
+  - The average is `(numbers[3] + numbers[4]) / 2.0 = (3 + 4) / 2.0 = 3.5`.
 
-Function generateRandomData(N, M)
-    sortedLists = List of N empty lists
+So, the algorithm calculates the median based on the evenness or oddness of the number of elements in the list and returns the appropriate result.
 
-    // Create a random number generator
-    random = RandomGenerator()
 
-    // Iterate through each list (school)
-    For each school from 1 to N
-        sortedList = Empty List
 
-        // Generate M random height values (e.g., between 100 and 200 cm)
-        For each student from 1 to M
-            height = random.nextInt(101) + 100
-            Add height to sortedList
 
-        // Sort the heights in ascending order
-        Sort sortedList in ascending order
 
-        Add sortedList to sortedLists
-
-    Return sortedLists
-
-Main()
-    Display Menu:
-    Print "1. Enter data manually"
-    Print "2. Random generated data"
-    Input choice
-
-    Switch on choice
-        Case 1:
-            Input numberOfInnerLists
-            Create an empty list inputSortedList
-            For each inner list in 1 to numberOfInnerLists
-                Input heights for the inner list in non-decreasing order
-                Create an empty list innerList
-                While true
-                    Input height
-                    If height < 0, break
-                    Add height to innerList
-                Add innerList to inputSortedList
-            Call findMedian(inputSortedList)
-
-        Case 2:
-            Input noOfSchools
-            Input studentsPerSchool
-            randomSortedLists = generateRandomData(noOfSchools, studentsPerSchool)
-            Call findMedian(randomSortedLists)
-______________________________________________________________________________________________________________
-b. Given there are N schools with x1,x2,x3,..., xn students respectively, what is the
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________b. Given there are N schools with x1,x2,x3,..., xn students respectively, what is the
    complexity of your algorithm
-______________________________________________________________________________________________________________
-The provided algorithm for finding the median of a list of sorted lists has a time complexity of O(N*M*log(M)), where:
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+The time complexity of the code for merging arrays of sizes x1, x2, x3, ..., xn is O(N * (x1 + x2 + x3 + ... + xn)), where N is the number of arrays.
 
-- N is the number of schools.
-- M is the average number of students in each school.
 
-Here's the breakdown of the time complexity:
 
-1. For each school (N schools):
-   - Sorting the heights (students) within each school is O(M*log(M)).
-   - Inserting each student's height into the max and min heaps is O(log(M)) on average.
 
-2. Overall, you do this for each of the N schools, so the total complexity is N * (M*log(M) + log(M)) = O(N*M*log(M)).
 
-The dominant factor in the time complexity is the sorting operation within each school's list of students. If you're looking for the worst-case time complexity, you can consider the sorting operation to be O(M*log(M)), where M is the maximum number of students in any school. This provides an upper bound on the time complexity.
-
-So, in big O notation, the algorithm has a time complexity of O(N*M*log(M)), and it scales with the number of schools (N) and the average number of students per school (M).
-______________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 **Reference**
+- https://www.codingninjas.com/studio/online-compiler/online-cpp-compiler
 - ChatGPT -> For Quick Snippets
-- https://www.geeksforgeeks.org/
+
+
+
+
+
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Code Explanation:
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Certainly, let's provide a detailed explanation of the code you provided. The code is designed to merge N sorted arrays (represented as lists) into a single sorted list and then find the median of that merged list. Here's a step-by-step explanation:
+
+### Merging Sorted Lists
+
+The first part of the code focuses on merging N sorted arrays efficiently.
+
+#### Function: `mergeNSortedArrayLists`
+
+- **Input**: `List<List<Integer>> arrays` - A list of N sorted lists, where each inner list represents a sorted array of integers.
+- **Output**: `List<Integer>` - A single sorted list containing all elements from the input lists.
+
+#### Merging Algorithm:
+
+1. Initialize an empty result list `result` that will store the merged elements.
+
+2. Create an array `indices` to keep track of the current position (index) in each input list. Initialize all indices to 0.
+
+3. Create a boolean variable `allListsEmpty` and set it to `false`. This variable will help determine when all input lists are exhausted.
+
+4. Start a timer to measure the runtime.
+
+5. Enter a loop that continues until `allListsEmpty` is `true`, meaning that all input lists have been fully processed.
+
+6. Inside the loop, initialize `minValue` to `Integer.MAX_VALUE` and `minIndex` to -1. These variables will keep track of the smallest value among the heads of the input lists and the index of the list from which the smallest value was taken.
+
+7. Iterate over each input list using a for loop.
+
+8. For each list, check if the corresponding index (`indices[i]`) is within the bounds of the list. If it is, this list is not empty.
+
+9. If the list is not empty, retrieve the value at the current index in that list and compare it to `minValue`. If the current value is smaller, update `minValue` and `minIndex`.
+
+10. After processing all lists, you will have found the smallest value among the heads of the input lists.
+
+11. If `minIndex` is not -1 (meaning a valid minimum value was found), add `minValue` to the `result` list and increment the index for that list (`indices[minIndex]`) to move to the next value in that list.
+
+12. Check if all input lists are empty by inspecting the `allListsEmpty` flag. If any list is not empty, set `allListsEmpty` to `false`.
+
+13. The loop repeats until `allListsEmpty` becomes `true`, at which point all input lists have been fully processed.
+
+14. Stop the timer to measure the runtime.
+
+15. Return the `result` list, which contains all elements from the input lists in sorted order.
+
+### Finding the Median
+
+After merging the input lists, the code proceeds to find the median of the merged list.
+
+#### Function: `findMedian`
+
+- **Input**: `List<Integer> sortedList` - A sorted list of integers.
+- **Output**: `double` - The median value of the list.
+
+#### Median Calculation:
+
+1. Calculate the total size of the merged list using `sortedList.size()`.
+
+2. Determine the middle index by dividing the total size by 2.
+
+3. If the total size is even (i.e., `totalSize % 2 == 0`), return the average of the two middle elements. This is done by retrieving the elements at indices `middle - 1` and `middle`, summing them, and dividing by 2.0 to ensure a floating-point result.
+
+4. If the total size is odd, simply return the middle element, which can be obtained using `sortedList.get(middle)`.
+
+### Main Function
+
+The `main` function coordinates the execution of the code.
+
+1. It reads the input data from a file and stores it in a list of lists (`inputSortedList`).
+
+2. The code then merges the input lists using the `mergeNSortedArrayLists` function and measures the runtime for this operation.
+
+3. After merging, it calculates the median using the `findMedian` function and displays both the merged list and the calculated median.
+
+In summary, this code efficiently merges N sorted lists without re-sorting the entire dataset and then calculates the median from the merged list. The result is obtained in a runtime-efficient manner, making it suitable for processing large datasets of sorted lists.
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
