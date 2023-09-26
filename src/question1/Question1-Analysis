@@ -47,3 +47,5 @@ In summary, the choice of data structure depends on the specific requirements of
 - AVL Tree: https://www.javatpoint.com/avl-tree-program-in-java
 - Splay Tree: https://www.javatpoint.com/splay-tree, https://codeofcode.org/lessons/splay-trees/
 - Random Functions: chatGPT
+- https://www.geeksforgeeks.org/find-the-minimum-element-in-a-binary-search-tree/
+- https://www.geeksforgeeks.org/deletion-in-an-avl-tree/

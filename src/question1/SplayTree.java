@@ -113,4 +113,53 @@ public class SplayTree {
     public int getRotationCount() {
         return rotationCount;
     }
+
+    public int findMinimum() {
+        if (root == null) {
+            throw new IllegalStateException("The splay tree is empty.");
+        }
+
+        SplayTreeNode current = root;
+        while (current.left != null) {
+            current = current.left;
+        }
+
+        root = splay(root, current.data); // Splay the minimum element to the root
+        return current.data;
+    }
+
+    public void printSplayTree() {
+        inOrderTraversal(root);
+    }
+
+    private void inOrderTraversal(SplayTreeNode node) {
+        if (node != null) {
+            inOrderTraversal(node.left);
+            System.out.print(node.data + " ");
+            inOrderTraversal(node.right);
+        }
+    }
+    public void deleteMinimum() {
+        if (root == null) {
+            throw new IllegalStateException("The splay tree is empty.");
+        }
+
+        // Find the minimum element (leftmost leaf)
+        SplayTreeNode minimumNode = findMinimumNode(root);
+        int minValue = minimumNode.data;
+
+        // Splay the minimum element to the root
+        root = splay(root, minValue);
+
+        // Remove the minimum element (root will now be the minimum element)
+        root = root.right;
+    }
+    private SplayTreeNode findMinimumNode(SplayTreeNode node) {
+        SplayTreeNode current = node;
+        while (current.left != null) {
+            current = current.left;
+        }
+        return current;
+    }
+
 }

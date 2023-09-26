@@ -259,6 +259,103 @@ class AVLTree
         return rotationCount;
     }
 
+
+
+    public void delete(int element) {
+        rootNode = delete(rootNode, element);
+    }
+    private Node delete(Node node, int element) {
+        if (node == null) {
+            return node;
+        }
+
+        if (element < node.element) {
+            node.leftChild = delete(node.leftChild, element);
+        } else if (element > node.element) {
+            node.rightChild = delete(node.rightChild, element);
+        } else {
+            // Node to delete found
+
+            if (node.leftChild == null || node.rightChild == null) {
+                // If the node has one child or no child
+                Node temp = (node.leftChild != null) ? node.leftChild : node.rightChild;
+
+                if (temp == null) {
+                    // No child case
+                    temp = node;
+                    node = null;
+                } else {
+                    // One child case
+                    node = temp;
+                }
+            } else {
+                // Node with two children: Get the in-order successor (smallest in the right subtree)
+                Node temp = findMin(node.rightChild);
+
+                // Copy the in-order successor's data to this node
+                node.element = temp.element;
+
+                // Delete the in-order successor
+                node.rightChild = delete(node.rightChild, temp.element);
+            }
+
+            if (node == null) {
+                return node;
+            }
+
+            // Update height of the current node
+            node.h = 1 + Math.max(getHeight(node.leftChild), getHeight(node.rightChild));
+
+            // Rebalance the node
+            int balance = getBalance(node);
+
+            // Left Heavy
+            if (balance > 1) {
+                if (getBalance(node.leftChild) >= 0) {
+                    return rotateWithLeftChild(node);
+                } else {
+                    return doubleWithLeftChild(node);
+                }
+            }
+
+            // Right Heavy
+            if (balance < -1) {
+                if (getBalance(node.rightChild) <= 0) {
+                    return rotateWithRightChild(node);
+                } else {
+                    return doubleWithRightChild(node);
+                }
+            }
+        }
+
+        return node;
+    }
+    private int getBalance(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return getHeight(node.leftChild) - getHeight(node.rightChild);
+    }
+    private Node findMin(Node node) {
+        while (node.leftChild != null) {
+            node = node.leftChild;
+        }
+        return node;
+    }
+    public int findMinValue() {
+        if (rootNode == null) {
+            return -1; // Return a default value indicating an empty tree
+        }
+
+        Node currentNode = rootNode;
+
+        while (currentNode.leftChild != null) {
+            currentNode = currentNode.leftChild;
+        }
+
+        return currentNode.element;
+    }
+
 }
 
 // create AVLTree class to construct AVL Tree
