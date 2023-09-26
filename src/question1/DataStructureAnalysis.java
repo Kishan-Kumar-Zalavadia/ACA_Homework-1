@@ -7,7 +7,7 @@ public class DataStructureAnalysis {
 
     public static void main(String[] args) {
         int dataSize = 50000;
-        int numLowestNumbers = 5;
+        int numLowestNumbers = 50;
         int numRandomInsertions = 5000;
 
 
@@ -82,7 +82,6 @@ public class DataStructureAnalysis {
         }
 
         // Report build times and swaps/rotations
-        //System.out.println("Building Times (nanoseconds): " + Arrays.toString(buildTimes));
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
         System.out.println("BUILD TIME:");
@@ -96,12 +95,14 @@ public class DataStructureAnalysis {
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Calculate and report means for build times
         System.out.println("MEANS FOR BUILDING TIME:");
         System.out.println("_________________________");
         printMean(heapBuildTimes, avlBuildTimes, splayBuildTimes);
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Calculate and report standard deviations for build times
         System.out.println("STANDARD DEVIATION FOR BUILDING TIME:");
         System.out.println("_______________________________________");
         printStandardDeviation(heapBuildTimes, avlBuildTimes, splayBuildTimes);
@@ -112,7 +113,7 @@ public class DataStructureAnalysis {
         System.out.println();
     }
 
-    // Measure Search Time
+    // Measure search time for random numbers
     public static void measureSearchTimeForRandomValue(BinaryMinHeap minHeap, AVLTree avlTree, SplayTree splayTree, int[] elements ,int numLowestNumbers){
         // Create arrays to store search times for Min Heap, AVL Tree, and Splay Tree
 
@@ -161,12 +162,14 @@ public class DataStructureAnalysis {
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Print the mean of search times for Min Heap, AVL Tree, and Splay Tree for random numbers
         System.out.println("MEAN OF SEARCH TIME FOR RANDOM NUMBERS:");
         System.out.println("_______________________________________");
         printMean(searchTimeRandomBinaryMinHeap, searchTimeRandomAVLTree, searchTimeRandomSplayTree);
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Print the standard deviation of search times for Min Heap, AVL Tree, and Splay Tree for random numbers
         System.out.println("STANDARD DEVIATION OF SEARCH TIME FOR RANDOM NUMBERS:");
         System.out.println("_____________________________________________________");
         printStandardDeviation(searchTimeRandomBinaryMinHeap, searchTimeRandomAVLTree, searchTimeRandomSplayTree);
@@ -177,6 +180,7 @@ public class DataStructureAnalysis {
         System.out.println();
     }
 
+    // Measure search time for lowest numbers
     public static void measureSearchTimeForLowestValue(BinaryMinHeap minHeap, AVLTree avlTree, SplayTree splayTree, int[] elements ,int numLowestNumbers){
         long[] searchTimeLowestBinaryMinHeap = new long[5];
         long[] searchTimeLowestAVLTree = new long[5];
@@ -209,12 +213,14 @@ public class DataStructureAnalysis {
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Print the mean of search times for Min Heap, AVL Tree, and Splay Tree for lowest numbers
         System.out.println("MEAN OF SEARCH TIME FOR LOWEST NUMBERS:");
         System.out.println("_______________________________________");
         printMean(searchTimeLowestBinaryMinHeap, searchTimeLowestAVLTree, searchTimeLowestSplayTree);
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Print the standard deviation search times for Min Heap, AVL Tree, and Splay Tree for lowest numbers
         System.out.println("STANDARD DEVIATION OF SEARCH TIME FOR LOWEST NUMBERS: ");
         System.out.println("______________________________________________________");
         printStandardDeviation(searchTimeLowestBinaryMinHeap, searchTimeLowestAVLTree, searchTimeLowestSplayTree);
@@ -270,12 +276,14 @@ public class DataStructureAnalysis {
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Report mean of insertion times for each data structure
         System.out.println("MEAN FOR INSERTION:");
         System.out.println("___________________");
         printMean(insertionTimesMinHeap, insertionTimesAVLTree, insertionTimesSplayTree);
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println();
 
+        // Report standard deviation  insertion times for each data structure
         System.out.println("STANDARD DEVIATION FOR INSERTION:");
         System.out.println("__________________________________");
         printStandardDeviation(insertionTimesMinHeap, insertionTimesAVLTree, insertionTimesSplayTree);
