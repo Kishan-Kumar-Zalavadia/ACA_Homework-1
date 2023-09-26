@@ -6,82 +6,70 @@ import java.util.*;
 
 public class MedianFinder {
 
-    public double findMedian(List<List<Integer>> sortedLists) {
-        int totalSize = getTotalSize(sortedLists);
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder()); // Max heap for the left half
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>(); // Min heap for the right half
+    // Function to merge N sorted ArrayLists.
+    public static List<Integer> mergeNSortedArrayLists(List<List<Integer>> arrays) {
+        List<Integer> result = new ArrayList<>();
+
+        // Create an array of indices to keep track of the current position in each input list.
+        int[] indices = new int[arrays.size()];
+
+        boolean allListsEmpty = false;
 
         long startTime = System.nanoTime();
-        for (List<Integer> sortedList : sortedLists) {
-            for (int value : sortedList) {
-                if (maxHeap.isEmpty() || value <= maxHeap.peek()) {
-                    maxHeap.offer(value);
-                } else {
-                    minHeap.offer(value);
-                }
+        while (!allListsEmpty) {
+            allListsEmpty = true;
+            int minValue = Integer.MAX_VALUE;
+            int minIndex = -1;
 
-                // Balance the heaps
-                if (maxHeap.size() > minHeap.size() + 1) {
-                    minHeap.offer(maxHeap.poll());
-                } else if (minHeap.size() > maxHeap.size()) {
-                    maxHeap.offer(minHeap.poll());
+            for (int i = 0; i < arrays.size(); i++) {
+                if (indices[i] < arrays.get(i).size()) {
+                    allListsEmpty = false;
+                    int currentValue = arrays.get(i).get(indices[i]);
+                    if (currentValue < minValue) {
+                        minValue = currentValue;
+                        minIndex = i;
+                    }
                 }
+            }
+
+            if (minIndex != -1) {
+                result.add(minValue);
+                indices[minIndex]++;
             }
         }
         long endTime = System.nanoTime();
         long runTime = endTime - startTime;
-        System.out.println("_____________________________________________________________");
-        System.out.println("_____________________________________________________________");
+        System.out.println("_____________________________________________________________________________________");
         System.out.println("Run Time: " + runTime + " nanoseconds");
-
-
-        if (totalSize % 2 == 0) {
-            // If even number of elements, return the average of the two middle elements
-            return (maxHeap.peek() + minHeap.peek()) / 2.0;
-        } else {
-            // If odd number of elements, return the middle element from the maxHeap
-            return maxHeap.peek();
-        }
-    }
-
-    private int getTotalSize(List<List<Integer>> sortedLists) {
-        int totalSize = 0;
-        for (List<Integer> list : sortedLists) {
-            totalSize += list.size();
-        }
-        return totalSize;
-//        return sortedLists.size()*sortedLists.get(0).size();
+        return result;
     }
 
 
-    private static class Element {
-        int value;
-        int listIndex;
 
-        public Element(int value, int listIndex) {
-            this.value = value;
-            this.listIndex = listIndex;
+    public double findMedian(List<Integer> sortedLists) {
+
+        int totalSize = sortedLists.size();
+        int middle = totalSize/2;
+        if(totalSize % 2 == 0){
+            // If even number of elements, medium the average of the two middle elements
+            return (sortedLists.get(middle - 1)+sortedLists.get(middle))/2.0;
         }
-    }
-
-    private static List<List<Integer>> generateRandomData(int N, int M) {
-        List<List<Integer>> sortedLists = new ArrayList<>();
-
-        Random random = new Random();
-
-        for (int school = 0; school < N; school++) {
-            List<Integer> sortedList = new ArrayList<>();
-            for (int student = 0; student < M; student++) {
-                // Generate random height values (e.g., between 100 and 200 cm)
-                int height = random.nextInt(101) + 100;
-                sortedList.add(height);
-            }
-            sortedList.sort(Integer::compareTo); // Sort the heights in ascending order
-            sortedLists.add(sortedList);
+        else{
+            // If odd number of elements, medium is middle element
+            return sortedLists.get(middle);
         }
 
-        return sortedLists;
+
+//        if (totalSize % 2 == 0) {
+//            // If even number of elements, return the average of the two middle elements
+//            return (maxHeap.peek() + minHeap.peek()) / 2.0;
+//        } else {
+//            // If odd number of elements, return the middle element from the maxHeap
+//            return maxHeap.peek();
+//        }
     }
+
+
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -104,12 +92,19 @@ public class MedianFinder {
 
             inputSortedList.add(innerList);
         }
-        System.out.println(inputSortedList);
-        MedianFinder finder = new MedianFinder();
-        double median = finder.findMedian(inputSortedList);
-        System.out.println("Median: " + median);
+        System.out.println("_____________________________________________________________________________________");
+        System.out.println("Input: "+inputSortedList);
 
+        List<Integer> mergedList = mergeNSortedArrayLists(inputSortedList);
+        System.out.println("Sorted Array: "+mergedList);
+
+        MedianFinder finder = new MedianFinder();
+        double median = finder.findMedian(mergedList);
+        System.out.println("Median: " + median);
+        System.out.println("_____________________________________________________________________________________");
         fileScanner.close();
 
     }
 }
+
+
