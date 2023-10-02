@@ -60,7 +60,7 @@ public class MedianFinder {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        String inputFilePath = "/Users/kishankumarz/Library/CloudStorage/GoogleDrive-kishankumarz3131@gmail.com/My Drive/Important/[02] USA/[02] UNT/[02] Classes/[01] Analysis_of Computer_Algoritms/[02] ACA_Assisgnment/[01] HomeWork/ACA_HomeWork-1/src/question2/input";
+        String inputFilePath = "/Users/kishankumarz/Library/CloudStorage/GoogleDrive-kishankumarz3131@gmail.com/My Drive/Important/[02] USA/[02] UNT/[02] Classes/[01] Analysis_of Computer_Algoritms/[02] ACA_Assisgnment/[01] HomeWork/ACA_HomeWork-1/src/question2/output.txt";
         Scanner fileScanner = new Scanner(new File(inputFilePath));
 
         List<List<Integer>> inputSortedList = new ArrayList<>();
